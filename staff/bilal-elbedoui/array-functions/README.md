@@ -9,8 +9,8 @@ Array.prototype.indexOf()
 Array.prototype.join()
 Array.prototype.lastIndexOf()
 Array.prototype.map()
-Array.prototype.reduce()
-Array.prototype.reduceRight()
+Array.prototype.reduce() --
+Array.prototype.reduceRight() --
 Array.prototype.reverse()
 Array.prototype.shift()
 Array.prototype.slice()
