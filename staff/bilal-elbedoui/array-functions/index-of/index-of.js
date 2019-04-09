@@ -8,6 +8,10 @@ var beasts = ['ant', 'bison', 'camel', 'duck', 'bison'];
 var valor='bison';
 
  function indexOf(array, valor){
+
+    if(!(array instanceof Array)) throw TypeError(array+'is not an array');
+    if(typeof valor === 'function') throw TypeError(valor+'is a function');
+
     for(i=0;i<array.length;i++){
         if(valor===array[i]){
             return i;
@@ -17,4 +21,3 @@ var valor='bison';
 
  }
 
-console.log(indexOf(beasts, valor));
