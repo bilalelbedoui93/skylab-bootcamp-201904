@@ -4,20 +4,19 @@
  * 
  */
 
-var beasts = ['ant', 'bison', 'camel', 'duck', 'bison'];
-var valor='bison';
+//var beasts = ['ant', 'bison', 'camel', 'duck', 'bison'];
+//var value='bison';
 
- function indexOf(array, valor){
+function indexOf(array, value){
 
     if(!(array instanceof Array)) throw TypeError(array+'is not an array');
-    if(typeof valor === 'function') throw TypeError(valor+'is a function');
+    if(typeof value === 'function') throw TypeError(value+'is a function');
 
     for(i=0;i<array.length;i++){
-        if(valor===array[i]){
+        if(value===array[i]){
             return i;
         }
     }
    return -1;
-
- }
+}
 
