@@ -1,11 +1,11 @@
 'use strict'
 
-suite('Index-of', function(){
+describe('Index-of', function(){
 
     var beasts = ['ant', 'bison', 'camel', 'duck', 'bison'];
     var value= 'bison';
 
-    test('return the element position in an array', function(){
+    it('return the element position in an array', function(){
         
         var expectedResult= 1;
         
@@ -16,7 +16,14 @@ suite('Index-of', function(){
 
     });
 
-    test('should break on undefined array', function(){
+    it('should break if the first argument is not an array '){
+        console.log('Case 1 Error')
+        
+        try {
+        console.log(indexOf('noArray', aString)); 
+        } catch (error) {
+        console.error(error.message);
+            }
+    }
 
-    });
 });
