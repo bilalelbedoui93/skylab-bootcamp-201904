@@ -15,14 +15,15 @@ describe('map', function(){
     });
 
     it('will check that the values introduced are an array and a callback', function(){
-        var func=function(){};
+        var aString='bilal';
+        var numbers =[1,2,3];
         try{
-            map(func);
+            map(numbers,aString);
 
             throw Error('should not reach this point');
 
         }catch(error){
-            expect(error.message, 'the second argument should be a function'), false;
+            expect(error.message,'the second argument should be a function');
         }
 
     });

@@ -4,17 +4,23 @@
  * 
  */
 
-var array = [56,78,98,423];
-var counter=0
 
 function reverse(array){
+
+  if(!(array instanceof Array)) throw TypeError('value introduced is not an array')
+
   var newarr=[];
+  var counter=0
+
   for(i=array.length-1;i>=0;--i){
-    newarr[counter]=array[i];
-    counter++;
+    if(typeof array[i]==='function'){
+        throw TypeError('cannot introduce function in an array');
+    }else{
+      newarr[counter]=array[i];
+      counter++;
+    }
   }
   return newarr;
     
 }
 
-console.log(reverse(array));

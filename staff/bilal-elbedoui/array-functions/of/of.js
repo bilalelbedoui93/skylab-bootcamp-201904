@@ -4,9 +4,14 @@
  * 
  */
 function of(){
-    var array=[]
-    for(var i=0;i<arguments.length;i++){
-         array[i] = arguments[i];
-    }
-  return array;
-} 
+  
+  var array=[]
+  for(var i=0;i<arguments.length;i++){
+       if(typeof arguments[i]==='function'){
+        throw TypeError('cannot introduce functions')
+       }else{
+        array[i] = arguments[i];
+       }
+  }
+return array;
+}
