@@ -9,8 +9,8 @@
 
 function indexOf(array, value){
 
-    if(!(array instanceof Array)) throw TypeError(array+'is not an array');
-    if(typeof value === 'function') throw TypeError(value+'is a function');
+    if(!(array instanceof Array)) throw TypeError(array+' is not an array');
+    if(typeof value === 'function') throw TypeError(value+' is a function');
 
     for(i=0;i<array.length;i++){
         if(value===array[i]){

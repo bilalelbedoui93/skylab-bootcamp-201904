@@ -13,17 +13,35 @@ describe('Index-of', function(){
 
         expect(result,expectedResult);
         
-
     });
 
-    it('should break if the first argument is not an array '){
-        console.log('Case 1 Error')
+    it('should break because the array is undefined', function(){
         
         try {
-        console.log(indexOf('noArray', aString)); 
+            
+        indexOf();
+
+        throw Error('should not reach this point');
         } catch (error) {
-        console.error(error.message);
-            }
-    }
+        expect(error.message, 'undefined is not an array');
+        }
+    });
+
+    it('should not work if the value is a function ', function(){
+
+        var func= function a(){};
+
+    try{
+        
+     indexOf(beasts, func);
+
+    throw Error('should not reach this point');
+
+    }catch(error){
+        expect(error.message,  'function a(){} is a function')
+    }    
+
+
+    });
 
 });
