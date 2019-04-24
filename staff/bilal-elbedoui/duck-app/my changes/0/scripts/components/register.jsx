@@ -30,5 +30,9 @@ const i18nRegister= {
 }
 
 function Register(){
+    const { lang } = props 
 
+    const literals = i18nRegister[lang]
+
+    function
 }
