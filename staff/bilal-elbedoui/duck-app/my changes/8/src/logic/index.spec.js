@@ -1,4 +1,6 @@
-'use strict'
+import logic from '.'
+import { LogicError, RequirementError, ValueError, FormatError } from '../common/errors'
+import userApi from '../data/user-api'
 
 describe('logic', () => {
     describe('users', () => {
@@ -120,7 +122,7 @@ describe('logic', () => {
             let id
 
             beforeEach(() =>
-                userApi.create(name, surname, email, password)
+                userApi.create(email, password, { name, surname })
                     .then(response => id = response.data.id)
             )
 
@@ -162,7 +164,7 @@ describe('logic', () => {
             let id, token
 
             beforeEach(() =>
-                userApi.create(name, surname, email, password)
+                userApi.create(email, password, { name, surname })
                     .then(response => {
                         id = response.data.id
 
@@ -199,6 +201,40 @@ describe('logic', () => {
                         expect(error.message).toBe(`token id \"${id}\" does not match user \"${logic.__userId__}\"`)
                     })
             })
+        })
+        describe('toggleFavDuck', () => {
+            let userid, token, user, duckid = '123'
+            debugger
+            beforeEach(() =>
+                userApi.create(email, password, { name, surname })
+                    .then(response => {
+                        userid = response.data.id
+
+                        return userApi.authenticate(email, password)
+                    })
+                    .then(response => {
+                        token = response.data.token
+
+                        logic.__userId__ = userid
+                        logic.__userToken__ = token
+                    })
+            )
+
+            it('should succeed on save correct id favourite duck', () =>
+                logic.toggleFavDuck(duckid)
+                    .then(response => {
+                       expect(response).toBeDefined()
+                       expect(response.status).toBe('OK')
+                    })
+                    .then(() => userApi.retrieve(userid, token))
+                    .then(response => {
+                        const { status, data } = response
+
+                        expect(status).toBe('OK')
+                        expect(data).toBeDefined()
+                        expect(data.fuckDucks[0]).toBe(duckid)
+                    }) 
+            )
         })
     })
 

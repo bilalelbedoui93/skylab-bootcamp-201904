@@ -36,7 +36,7 @@ const logic = {
 
         validate.email(email)
 
-        return userApi.create(name, surname, email, password)
+        return userApi.create(email, password, { name, surname })
             .then(response => {
                 if (response.status === 'OK') return
 
@@ -97,6 +97,39 @@ const logic = {
         ])
 
         return duckApi.retrieveDuck(id)
+    },
+
+    toggleFavDuck(duckId) {
+        return userApi.retrieve(this.__userId__, this.__userToken__)
+        .then(response => {
+            if (response.status === 'OK') {
+                const { data } = response
+                
+                const favourites = data.favourites? data.favourites : []
+
+                const duckPosition = favourites.indexOf(duckId)
+                if(duckPosition !== -1){
+                    favourites.splice(duckPosition,1)
+                } else{
+                    favourites.push(duckId)
+                }
+                return userApi.update(this.__userId__,this.__token__,{favourites})
+
+
+            } else throw new LogicError(response.error)
+        })
+        
+    },
+
+    retrieveFavDucks() {
+        return userApi.retrieve(this.__userId__, this.__userToken__)
+        .then(loginDone => {
+            const { data } = loginDone
+
+            data.favourites.forEach(x => {
+                return x
+            })
+        })
     }
 }
 
