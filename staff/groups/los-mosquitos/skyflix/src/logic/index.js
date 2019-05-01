@@ -77,6 +77,13 @@ const logic = {
             })
     },
 
+    updateUser(){
+        return userApi.update(this.__userId__,this.__userToken__,this.data)
+            .then(response => {
+                if(response.status==='OK') return
+            })
+    },
+
     logoutUser() {
         sessionStorage.clear()
     },

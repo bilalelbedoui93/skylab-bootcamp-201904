@@ -24,6 +24,12 @@ class Home extends Component {
             })
     }
 
+    // function handlechngPass(){
+
+        
+
+    // }
+
     render() {
         const {
             props: { lang, name, onLogout },
@@ -38,6 +44,7 @@ class Home extends Component {
             <h1>{hello}, {name}!</h1>
             <Search lang={lang} onSearch={handleSearch} />
             <Results lang={lang} items={movies} />
+           {/* <Profile lang={lang} handlechngPass={handlechngPass}/> */}
         </main>
     }
 }

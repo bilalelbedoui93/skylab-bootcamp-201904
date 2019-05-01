@@ -1,7 +1,12 @@
 import React from 'react'
 import literals from './literals'
+import userApi from '../../data/user-api'
 
-function Profile({ lang, onDelete, }) {
+function Profile({ lang, handlechngPass }) {
+
+
+
+
 
 
     return <div>
@@ -13,13 +18,13 @@ function Profile({ lang, onDelete, }) {
         </div>
 
         <div>
-            <form>
+            <form onSubmit={handlechngPass}>
 
                 <p>
-                    <label>Fullname</label> : <input type="text" name="fullname" disabled/>
+                    <label>Fullname</label> : <input type="text" name="fullname" disabled />
                 </p>
                 <p>
-                    <label>email</label> : <input type="text" name="email" disabled/>
+                    <label>email</label> : <input type="text" name="email" disabled />
                 </p>
                 <p>
                     <label>If you want to change your password, introduce the new one</label> : <input type="password" name="changePassword" />
@@ -30,7 +35,7 @@ function Profile({ lang, onDelete, }) {
         </div>
 
         <div>
-            <form>
+            <form >
                 <p>
                     <label>If you want to cancel your suscription</label> : <button>Cancel suscription</button>
                 </p>
@@ -41,6 +46,8 @@ function Profile({ lang, onDelete, }) {
 
 
 }
+
+
 
 
 export default Profile
