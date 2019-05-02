@@ -58,6 +58,27 @@ describe('movie api', () => {
         )
     })
 
+    describe('retrieve movie genres', () => {
+        it('should succed with correct apikey', () =>
+            movieApi.retrieveMovieGenres()
+                .then(response => {
+                    expect(response).toBeDefined()
+                    expect(response instanceof Object).toBeTruthy()
+                    expect(response.genres instanceof Array).toBeTruthy()
+                    expect(response.genres.length).toBe(19)
+                })
+        )
+    })
+
+    describe('retrieve Trailer', () => {
+
+        it('should succed on ')
+            const id = 550
+            movieApi.retrieveTrailer()
+
+        })
+
+
     describe('invalid APIKEY', () => {
         let apiKey
 
@@ -76,6 +97,14 @@ describe('movie api', () => {
 
         it('should fail on retrieveMovies', () =>
             movieApi.retrieveMovie(5)
+                .then(response => {
+                    expect(response).toBeDefined()
+                    expect(response.status_message).toBe('Invalid API key: You must be granted a valid key.')
+                })
+        )
+
+        it('should fail on retrieveMovieGenres', () =>
+            movieApi.retrieveMovieGenres()
                 .then(response => {
                     expect(response).toBeDefined()
                     expect(response.status_message).toBe('Invalid API key: You must be granted a valid key.')
