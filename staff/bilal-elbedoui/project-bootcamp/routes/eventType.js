@@ -1,28 +1,28 @@
 const logic = require('../logica');
 const express = require('express');
-const { validate } = require('../data/event-data/modelos/eventType')
+const handleErrors = require('../middleware/handle-errors')
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-    const eventType = await logic.getAllEventType();
-    res.send(eventType);
+    handleErrors(async()=>{
+        const eventType = await logic.getAllEventType();
+        res.json(eventType);
+    },res)
 })
 
 router.get('/:id', async (req,res) => {
-    const eventType = await logic.getOneEventType(req.params.id)
-    res.send(eventType);
+    handleErrors(async()=> {
+        const eventType = await logic.getOneEventType(req.params.id)
+        res.json(eventType);
+    },res)
 })
 
 router.post('/', async (req,res)=> {
-    const {error} = validate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
-
-    const eventType = {
-        name:req.body.name
-    }
-
-    const result = await logic.createEventType(eventType)
-    res.send(result);
+    debugger
+    handleErrors(async()=>{
+        const result = await logic.createEventType(req.body)
+        res.json(result);
+    },res)
 
 })
 
