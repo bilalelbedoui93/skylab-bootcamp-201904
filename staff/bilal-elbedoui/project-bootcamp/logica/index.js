@@ -16,11 +16,11 @@ Fawn.init(mongoose)
 
 const logic = {
     /***********************************MEDICAL-FIELDS FUNCTIONS*********************************************/
-    async createMedicalField(field) {
+    async createMedicalField(field1) {
 
-        const { error } = validateField(field)
+        const { error } = validateField(field1)
         if (error) throw new ValidateError(error.details[0].message);
-        const { field } = name
+        const { name } = field1
         try {
             const field = new Field({
                 name
@@ -78,7 +78,7 @@ const logic = {
 
         let user = await Organization.findOne({ organizationMail })
 
-        if (user) throw Error(`The organization with the email ${email} already exists`)
+        if (user) throw Error(`The organization with the email ${organizationMail} already exists`)
 
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt)
@@ -102,7 +102,7 @@ const logic = {
         const { organizationMail, password } = req
 
         let orga = await Organization.findOne({ organizationMail })
-        if (!orga) throw new LogicError(`Organization with the email ${email} doesn't exist`)
+        if (!orga) throw new LogicError(`Organization with the email ${organizationMail} doesn't exist`)
 
         const validPassword = await bcrypt.compare(password, orga.password)
         if (!validPassword) throw new LogicError('Wrong credential')
@@ -249,7 +249,7 @@ const logic = {
     async retrieveEvents(query) {
 
         const { field, eventType } = query
-cd 
+        
         if (field && eventType) {
             const events = await Event.find().and([{ 'field.name': field }, { 'eventType.name': eventType }])
             if (!events) throw Error('There are no events available')
@@ -259,6 +259,10 @@ cd
             const event = await Event.find({ 'field.name': field })
             if (!events) throw Error('There are no events available')
             return event;
+        }else{
+            const events= await Event.find()
+            if (!events) throw Error('There are no events available')
+            return events
         }
     },
 
@@ -351,26 +355,26 @@ cd
 
         })
         try {
-            // const result = await purchase.save()
+            const result = await purchase.save()
 
-            // const result1= await Event.findByIdAndUpdate(eventId, {
-            //     $set: {
-            //         numberTicketsAvailable: (numberTicketsAvailable - numberOfticketsBoughts)
+            const result1 = await Event.findById(eventId)
 
-            //     }
-            // })
+            // numberTicketsAvailable: (numberTicketsAvailable - numberOfticketsBoughts)
 
+            result1.numberTicketsAvailable = result1.numberTicketsAvailable - numberOfticketsBoughts
 
-            debugger
-            new Fawn.Task()
-                .save('purchases', purchase)
-                .update('events', { event: eventId }, {
-                    $inc: {
-                        numberTicketsAvailable: -33
-                    }
-                })
-                .run({ useMongoose: true })
-            debugger
+            await result1.save()
+
+            // debugger
+            // new Fawn.Task()
+            //     .save('purchases', purchase)
+            //     .update('events', { event: eventId }, {
+            //         $inc: {
+            //             numberTicketsAvailable: -33
+            //         }
+            //     })
+            //     .run({ useMongoose: true })
+            // debugger
             return result;
         } catch (ex) {
             debugger
