@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 const Joi = require('@hapi/joi');
+Joi.objectId = require('joi-objectid')(Joi);
 const { fieldsSchema } = require('./medical-fields')
 const { eventTypeSchema } = require('./eventType')
+const { usersSchema } = require('./users')
+const { organizationSchema } = require('./organization')
+const { QueAns } = require('./questionsAnswers')
 
 const eventSchema = new mongoose.Schema({
 
@@ -9,70 +13,95 @@ const eventSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 2,
-        maxlength: 50,
-        trim: true
+        maxlength: 255,
+        trim: true,
+        uppercase: true
     },
-    description:{
-        type:String,
-        required:true,
-        minlength:100,
+    description: {
+        type: String,
+        required: true,
+        minlength: 200,
     },
-    eventPlaner: {
-        type: new mongoose.Schema({
-            organizationName: {
-                type: String,
-                required: true,
-                minlength: 10,
-                maxlength: 255,
-                trim: true,
-            },
-            organizationPhone: {
-                type: String,
-                required: true,
-                minlength: 9,
-                maxlength: 20,
-                trim: true
-            },
-            organizationMail: {
-                type: String,
-                required: true,
-                minlength: 10,
-                maxlength: 255,
-                trim: true
-            }
-        })
+    representant: {
+        type: usersSchema,
+        required: true
     },
     field: {
         type: fieldsSchema,
         required: true
     },
-    type: {
+    eventType: {
         type: eventTypeSchema,
         required: true
     },
     location: {
-        type: String,
-        required: true,
-        minlength: 9,
-        maxlength: 20,
-        trim: true
+        type: new mongoose.Schema({
+            country: {
+                type: String,
+                required: true,
+                minlength: 2,
+                maxlength: 255,
+                trim: true
+            },
+            city: {
+                type: String,
+                required: true,
+                minlength: 2,
+                maxlength: 255,
+                trim: true
+            },
+            address: {
+                type: String,
+                required: true,
+                minlength: 2,
+                maxlength: 255,
+                trim: true
+            }
+        })
     },
     date: {
         type: Date,
-        required: true
+        required: true,
     },
     numberTicketsAvailable: {
         type: Number,
-        required: true
-
+        required: true,
+        min: 1
     },
     price: {
         type: Number,
         required: true,
         min: 0,
-        max: 200
+        max: 1000
+    },
+    questionsAndAnswers: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'QueAns'
     }
 })
 
 
-exports.Event=mongoose.model('Event', eventSchema)
+function validateEvent({ representant, organization }, event) {
+    const schema = {
+        representant: Joi.objectId().required(),
+        organization: Joi.objectId().required()
+    }
+    const schema1 = {
+        title: Joi.string().min(5).max(50).required(),
+        description: Joi.string().min(200).required(),
+        field: Joi.objectId().required(),
+        eventType: Joi.objectId().required(),
+        location: Joi.object().min(1).required(),
+        date: Joi.date().required(),
+        numberTicketsAvailable: Joi.number().required(),
+        price: Joi.required()
+    }
+    debugger
+    const result = Joi.validate({ representant, organization }, schema) && Joi.validate(event, schema1)
+    debugger
+    return result
+}
+
+
+exports.Event = mongoose.model('Event', eventSchema);
+exports.validateEvent = validateEvent;
