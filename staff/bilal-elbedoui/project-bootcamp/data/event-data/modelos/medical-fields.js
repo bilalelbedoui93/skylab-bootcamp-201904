@@ -22,4 +22,4 @@ function validateField(field){
 
 exports.fieldsSchema = fieldsSchema;
 exports.Field = mongoose.model('Field', fieldsSchema)
-exports.validate = validateField
+exports.validateField = validateField

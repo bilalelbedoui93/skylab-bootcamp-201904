@@ -1,29 +1,31 @@
 const logic = require('../logica');
 const express = require('express');
-const { validate } = require('../data/event-data/modelos/medical-fields')
 const router = express.Router();
+const handleErrors = require('../middleware/handle-errors')
 
-router.get('/', async (req, res)=>{
-    const fields = await logic.getAllfields()
-    res.send(fields)
+
+router.get('/', (req, res) => {
+
+    handleErrors(async () => {
+        const fields = await logic.getAllfields()
+
+        res.json(fields)
+    }, res)
 })
 
-router.get('/:id', async (req,res)=> {
-    const field = await logic.getOnefield(req.params.id)
-    res.send(field)
+router.get('/:id', async (req, res) => {
+
+    handleErrors(async() => {
+        const field = await logic.getOnefield(req.params.id)
+        res.json(field)
+    }, res)
 })
 
 router.post('/', async (req, res) => {
-    
-    const {error} = validate(req.body)
-    if (error) return res.status(400).send(error.details[0].message);
-    
-    const field = {
-        name:req.body.name
-    }
-
-    const result = await logic.createMedicalField(field)
-    res.send(result)
+    handleErrors(async () => {
+        const result = await logic.createMedicalField(req.body)
+        res.json(result)
+    }, res)
 })
 
-module.exports=router;
+module.exports = router;
