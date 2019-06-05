@@ -81,10 +81,10 @@ const eventSchema = new mongoose.Schema({
 })
 
 
-function validateEvent({ representant, organization }, event) {
+function validateEvent({sub,subOrga}, event) {
     const schema = {
-        representant: Joi.objectId().required(),
-        organization: Joi.objectId().required()
+        sub: Joi.objectId().required(),
+        subOrga: Joi.objectId().required()
     }
     const schema1 = {
         title: Joi.string().min(5).max(50).required(),
@@ -96,9 +96,7 @@ function validateEvent({ representant, organization }, event) {
         numberTicketsAvailable: Joi.number().required(),
         price: Joi.required()
     }
-    debugger
-    const result = Joi.validate({ representant, organization }, schema) && Joi.validate(event, schema1)
-    debugger
+    const result = Joi.validate({sub,subOrga}, schema) && Joi.validate(event, schema1)
     return result
 }
 

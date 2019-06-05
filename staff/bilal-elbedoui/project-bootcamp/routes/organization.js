@@ -1,8 +1,9 @@
 const auth = require('../middleware/auth')
 const express = require('express');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 const router = express.Router();
 const logic = require('../logica');
-const lodash = require('lodash');
 const handleErrors = require('../middleware/handle-errors')
 
 
@@ -19,19 +20,21 @@ router.get('/me', auth, (req, res) => {
 router.post('/', (req, res) => {
 
     handleErrors(async() => {
-        const orga = await logic.createOrganization(req.body)
+        
+        await logic.createOrganization(req.body)
     
-        const token = orga.generateAuthToken()
-        res.header('x-auth-token', token).send(lodash.pick(orga, ['_id', 'organizationName', 'organizationMail']));
+        res.jason({message: 'Registered correctly...'})
     }, res)
 
 })
 
 router.post('/auth', (req, res) => {
-debugger
+
     handleErrors(async() => {
-        const orga = await logic.authenticateOrganization(req.body)
-        const token = orga.generateAuthToken()
+        const sub = await logic.authenticateOrganization(req.body)
+
+        const token = jwt.sign({sub} , config.get('jwtPrivateKey'));
+
         res.send({ message: 'You are logged...', token })
 
     }, res)

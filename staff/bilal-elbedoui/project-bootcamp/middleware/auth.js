@@ -8,9 +8,10 @@ module.exports = function (req,res,next){
     
     try{
         debugger
-        const decodedPayload= jwt.verify(token, config.get('jwtPrivateKey'));
+        const {sub , subOrga}= jwt.verify(token, config.get('jwtPrivateKey'));
         
-        req.user = decodedPayload;
+        req.userId = sub;
+        if(subOrga) req.orgaId = subOrga
 
         next();
 

@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const Joi = require('@hapi/joi');
 const PasswordComplexity = require('joi-password-complexity');
-const jwt = require('jsonwebtoken');
-const config = require('config');
 
 const organizationSchema = new mongoose.Schema({
 
@@ -48,16 +46,9 @@ const organizationSchema = new mongoose.Schema({
     }
 })
 
-organizationSchema.methods.generateAuthToken = function () {
-
-    const token = jwt.sign({ _id: this._id }, config.get('jwtPrivateKey'));
-
-    return token
-};
-
 
 function password() {
-    debugger
+    
     return complexityOptions = {
         min: 5,
         max: 255,
@@ -75,7 +66,7 @@ function password() {
     }
 }
 function validateRegisterOrganization(user) {
-    debugger
+    
     const complexityOptions = password()
     const schema = {
         organizationName: Joi.string().min(5).required(),
@@ -85,14 +76,14 @@ function validateRegisterOrganization(user) {
         password: new PasswordComplexity(complexityOptions).required()
 
     }
-    debugger
+    
     const result = Joi.validate(user, schema)
-    debugger
+    
     return result
 }
 
 function validateAuthOrganization(user) {
-    debugger
+    
     const complexityOptions = password()
     const schema = {
         organizationMail: Joi.string().min(9).email().required(),

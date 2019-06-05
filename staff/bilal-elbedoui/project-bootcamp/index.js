@@ -6,19 +6,19 @@ const app = express();
 
 // If the environment variable is not defined it will not work
 
-if(!config.get('jwtPrivateKey')){
+if (!config.get('jwtPrivateKey')) {
     console.log('FATAL ERROR: jwtPrivateKey is not defined')
     process.exit(1)
 }
 
 (async () => {
-    mongoose.connect('mongodb://localhost/project', {useNewUrlParser:true, useCreateIndex:true})
+    try {
+        mongoose.connect('mongodb://localhost/project', { useNewUrlParser: true, useCreateIndex: true })
 
-        try{
-            console.log('connected to the project database...')
-        }catch(err){
-            console.log('ERROR, could not connect to the dataBase...')
-        }
+        console.log('Connected to the project database...')
+    } catch (error) {
+        console.log('Cannot connecte to the db...')
+    }
 })()
 
 app.use(express.json());
@@ -28,7 +28,6 @@ app.use('/api/organization', require('./routes/organization'))
 app.use('/api/users', require('./routes/users'))
 app.use('/api/events', require('./routes/events'))
 app.use('/api/purchase', require('./routes/purchase'))
-
 
 
 

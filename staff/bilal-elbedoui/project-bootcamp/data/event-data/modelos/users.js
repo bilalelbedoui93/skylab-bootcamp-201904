@@ -53,19 +53,9 @@ const usersSchema = new mongoose.Schema({
     }
 })
 
-usersSchema.methods.generateAuthToken = function () {
-    if (this.role === 'admin') {
-        const token = jwt.sign({ _id: this._id, organization: this.organization }, config.get('jwtPrivateKey'));
-        return token;
-    } else {
-        const token = jwt.sign({ _id: this._id }, config.get('jwtPrivateKey'));
-        return token;
-    }
-
-}
 
 function password() {
-    debugger
+    
     return complexityOptions = {
         min: 5,
         max: 255,
@@ -83,11 +73,11 @@ function password() {
     }
 }
 function validateRegisterUser(user) {
-    debugger
+    
     const complexityOptions = password()
     const schema = {
         fullname: Joi.string().min(5).required(),
-        email: Joi.string().min(9).email().required(),
+        email: Joi.string().min(2).email().required(),
         phoneNumber: Joi.string().min(9).required(),
         role: Joi.string().required(),
         organization: Joi.string(),
@@ -100,7 +90,7 @@ function validateRegisterUser(user) {
 }
 
 function validateAuthUser(user) {
-    debugger
+    
     const complexityOptions = password()
     const schema = {
         email: Joi.string().min(9).email().required(),
