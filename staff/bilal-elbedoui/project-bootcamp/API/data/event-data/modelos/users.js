@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const Joi = require('@hapi/joi');
 const PasswordComplexity = require('joi-password-complexity');
-// const jwt = require('jsonwebtoken');
-// const config = require('config');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 const { Types: { ObjectId } } = mongoose
 const {organizationSchema} = require('./organization')
 
