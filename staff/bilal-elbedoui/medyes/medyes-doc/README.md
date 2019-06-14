@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This app allows to the representants of different organizations to publish medical events, to inform the different users (students and doctors...) that are working in the sector
+This project allows to the representants of different organizations to publish medical events, to inform the different users (students and doctors...) that are working in the sector
 
 ![image](./images/introduction.gif)
 
