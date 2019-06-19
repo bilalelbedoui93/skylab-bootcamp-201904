@@ -5,9 +5,6 @@ import call from '../common/call'
 const organizations = {
 
     __url__: 'https://floating-refuge-24678.herokuapp.com/api/organization',
-    // __url__: 'https://evening-hamlet-54593.herokuapp.com/api/organization',
-
-
 
     addOrganization(token, name, phone, address, mail) {
         return (async()=>{

@@ -5,11 +5,6 @@ const events = {
 
     __url__: 'https://floating-refuge-24678.herokuapp.com/api/event',
 
-        // __url__: 'https://evening-hamlet-54593.herokuapp.com/api/event',
-
-
-
-
     retrieveEvents(token, medicalField, eventType) {
 
         return (async () => {

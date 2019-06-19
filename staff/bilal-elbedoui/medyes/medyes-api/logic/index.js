@@ -357,8 +357,8 @@ const logic = {
      * 
      * function that allow to search the different events with two different queries
      * 
-     * @param {*} medicalField first query
-     * @param {*} eventType second query
+     * @param {String} medicalField first query
+     * @param {String} eventType second query
      * 
      * @returns the results
      */
@@ -399,7 +399,7 @@ const logic = {
     /**
      * to retrieve a specific event
      * 
-     * @param {*} id event Id
+     * @param {String} id event Id
      * 
      * @returns the event
      */
@@ -417,9 +417,9 @@ const logic = {
     /**
      * Allows the event published to edit it
      * 
-     * @param {*} eventId event ID
-     * @param {*} userId publisher Id
-     * @param {*} description the new description
+     * @param {String} eventId event ID
+     * @param {String} userId publisher Id
+     * @param {String} description the new description
      * 
      * @returns the new event updated
      */
@@ -448,10 +448,10 @@ const logic = {
      * Allow the users to make question and be answered by any organization responsible
      * 
      * 
-     * @param {*} eventid eventId
-     * @param {*} sub publisher Id
-     * @param {*} org Organization Id
-     * @param {*} text the description
+     * @param {String} eventid eventId
+     * @param {String} sub publisher Id
+     * @param {String} org Organization Id
+     * @param {String} text the description
      * 
      * @returns the post that has been sent
      */
@@ -490,7 +490,7 @@ const logic = {
     /**
      * to retrieve all the posts that belongs to an event
      * 
-     * @param {*} eventId event Id
+     * @param {String} eventId event Id
      * 
      * @returns the comments
      */
@@ -507,9 +507,9 @@ const logic = {
     /**
      * function that allow the user to make a purchase
      * 
-     * @param {*} eventId event ID
-     * @param {*} customerId customer ID
-     * @param {*} numberOfTickets the number of the tickets bougths by a user
+     * @param {String} eventId event ID
+     * @param {String} customerId customer ID
+     * @param {Number} numberOfTickets the number of the tickets bougths by a user
      * 
      * @returns the purchase
      */

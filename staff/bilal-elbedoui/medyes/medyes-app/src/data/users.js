@@ -4,10 +4,7 @@ import call from '../common/call'
 
 const users = {
 
-    __url__: 'https://floating-refuge-24678.herokuapp.com/api/user',
-
-    // __url__: 'https://evening-hamlet-54593.herokuapp.com/api/user',
-    
+    __url__: 'https://floating-refuge-24678.herokuapp.com/api/user', 
 
 
     createUser(fullname, email, role, organization, phone, position, password) {
